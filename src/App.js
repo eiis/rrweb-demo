@@ -1,11 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import rrwebPlayer from 'rrweb-player';
 import 'rrweb-player/dist/style.css';
 
 import React, { useRef, useState } from 'react';
 import './App.css';
-// import rrweb from 'rrweb'
-const rrweb = require('rrweb');
+import {record} from 'rrweb'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -16,17 +14,12 @@ function App() {
   let events = [];
 
   const start = () => {
-    stopFn = rrweb.record({
+    stopFn = record({
       emit(event) {
         // 将 event 存入 events 数组中
         events.push(event);
-        // console.log(events);
       },
     });
-    // const replayer = new rrweb.Replayer([], {
-    //   liveMode: true,
-    // });
-    // replayer.startLive(1500);
   };
 
   const replay = () => {
@@ -43,6 +36,7 @@ function App() {
           // 配置项
           props: {
             events,
+            showController: false,//隐藏其控制器 UI
           },
         });
         console.log(replayInstance, 'replayInstance')
